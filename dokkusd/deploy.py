@@ -2,7 +2,7 @@ import json
 import os
 import subprocess
 
-from .config_models import ServiceConfigModel
+from .config_models import ServiceConfigModel, VolumeConfigModel
 from .util import get_remote_name_of_url
 
 
@@ -96,6 +96,15 @@ class Deploy:
             print(stdout)
             print(stderr)
             stdout, stderr = self._dokku_command(service_model.link_command)
+            print(stdout)
+            print(stderr)
+        volumes = app_json.get("dokkusd", {}).get("volumes", [])
+        for volume in volumes:
+            volume_model = VolumeConfigModel(volume, self.app_name)
+            stdout, stderr = self._dokku_command(volume_model.ensure_command)
+            print(stdout)
+            print(stderr)
+            stdout, stderr = self._dokku_command(volume_model.mount_command)
             print(stdout)
             print(stderr)
 
