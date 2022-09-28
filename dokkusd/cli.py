@@ -12,12 +12,24 @@ def main() -> None:
     deploy_parser = subparsers.add_parser("deploy")
 
     # host
-    deploy_parser.add_argument("--remotehost", help="Remote URL")
-    deploy_parser.add_argument("--remoteport", help="Remote Port", default="22")
-    deploy_parser.add_argument("--remoteuser", help="Remote User", default="dokku")
+    deploy_parser.add_argument(
+        "--remotehost", help="Remote URL", default=os.getenv("DOKKUSD_REMOTE_HOST")
+    )
+    deploy_parser.add_argument(
+        "--remoteport",
+        help="Remote Port",
+        default=os.getenv("DOKKUSD_REMOTE_PORT") or "22",
+    )
+    deploy_parser.add_argument(
+        "--remoteuser",
+        help="Remote User",
+        default=os.getenv("DOKKUSD_REMOTE_USER") or "dokku",
+    )
 
     # app details
-    deploy_parser.add_argument("--appname", help="App name")
+    deploy_parser.add_argument(
+        "--appname", help="App name", default=os.getenv("DOKKUSD_APP_NAME")
+    )
 
     args = parser.parse_args()
 
