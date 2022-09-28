@@ -19,6 +19,7 @@ setuptools.setup(
     install_requires=[],
     extras_require={
         "Dev": [
+            "sphinx",
             "black==22.8.0",
             "isort==5.10.1",
             "flake8==5.0.4",
