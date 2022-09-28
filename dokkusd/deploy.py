@@ -2,6 +2,7 @@ import json
 import os
 import subprocess
 
+from .config_models import ServiceConfigModel
 from .util import get_remote_name_of_url
 
 
@@ -90,12 +91,11 @@ class Deploy:
         print("Configure services ...")
         services = app_json.get("dokkusd", {}).get("services", [])
         for service in services:
-            stdout, stderr = self._dokku_command([service + ":create", self.app_name])
+            service_model = ServiceConfigModel(service, self.app_name)
+            stdout, stderr = self._dokku_command(service_model.create_command)
             print(stdout)
             print(stderr)
-            stdout, stderr = self._dokku_command(
-                [service + ":link", self.app_name, self.app_name]
-            )
+            stdout, stderr = self._dokku_command(service_model.link_command)
             print(stdout)
             print(stderr)
 
