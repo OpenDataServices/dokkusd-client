@@ -7,7 +7,7 @@ setuptools.setup(
     long_description="DokkuSD",
     url="https://github.com/OpenDataServices/dokkusd-client",
     project_urls={
-        "Documentation": "https://datatig.readthedocs.io/en/latest/",
+        "Documentation": "https://dokkusd-client.readthedocs.io/en/latest/",
         "Issues": "https://github.com/OpenDataServices/dokkusd-client/issues",
         "Source": "https://github.com/OpenDataServices/dokkusd-client",
     },
