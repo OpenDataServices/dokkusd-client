@@ -7,3 +7,4 @@ DokkuSD
    deploy.rst
    destroy.rst
    resources.rst
+   branch-deploy-via-github-actions.rst
