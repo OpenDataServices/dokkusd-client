@@ -1,5 +1,6 @@
 import argparse
 import os
+import sys
 
 from .deploy import Deploy
 from .destroy import Destroy
@@ -60,6 +61,14 @@ def main() -> None:
 
     if args.subparser_name == "deploy":
 
+        if not args.remotehost:
+            print("Must specify remote host!")
+            sys.exit(-1)
+
+        if not args.appname:
+            print("Must specify app name!")
+            sys.exit(-1)
+
         deploy = Deploy(
             directory=os.getcwd(),
             remote_user=args.remoteuser,
@@ -70,6 +79,14 @@ def main() -> None:
         deploy.go()
 
     elif args.subparser_name == "destroy":
+
+        if not args.remotehost:
+            print("Must specify remote host!")
+            sys.exit(-1)
+
+        if not args.appname:
+            print("Must specify app name!")
+            sys.exit(-1)
 
         destroy = Destroy(
             directory=os.getcwd(),
