@@ -7,6 +7,26 @@ from .util import Task
 
 
 class Deploy(Task):
+    def __init__(
+        self,
+        directory: str,
+        remote_user: str,
+        remote_host: str,
+        remote_port: str,
+        app_name: str,
+        http_auth_user: str = None,
+        http_auth_password: str = None,
+    ):
+        super().__init__(
+            directory=directory,
+            remote_user=remote_user,
+            remote_host=remote_host,
+            remote_port=remote_port,
+            app_name=app_name,
+        )
+        self.http_auth_user = http_auth_user
+        self.http_auth_password = http_auth_password
+
     def go(self) -> None:
 
         # --------------------- app.json
@@ -47,6 +67,20 @@ class Deploy(Task):
             print(stdout)
             print(stderr)
             stdout, stderr = self._dokku_command(volume_model.mount_command)
+            print(stdout)
+            print(stderr)
+
+        # --------------------- HTTP Auth
+        if self.http_auth_user and self.http_auth_password:
+            print("HTTP Auth ...")
+            stdout, stderr = self._dokku_command(
+                [
+                    "http-auth:enable",
+                    self.app_name,
+                    self.http_auth_user,
+                    self.http_auth_password,
+                ]
+            )
             print(stdout)
             print(stderr)
 

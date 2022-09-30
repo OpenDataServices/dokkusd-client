@@ -33,6 +33,16 @@ def main() -> None:
     deploy_parser.add_argument(
         "--appname", help="App name", default=os.getenv("DOKKUSD_APP_NAME")
     )
+    deploy_parser.add_argument(
+        "--httpauthuser",
+        help="HTTP Auth User",
+        default=os.getenv("DOKKUSD_HTTP_AUTH_USER"),
+    )
+    deploy_parser.add_argument(
+        "--httpauthpassword",
+        help="HTTP Auth Password",
+        default=os.getenv("DOKKUSD_HTTP_AUTH_PASSWORD"),
+    )
 
     ### Destroy
     destroy_parser = subparsers.add_parser("destroy")
@@ -75,6 +85,8 @@ def main() -> None:
             remote_host=args.remotehost,
             remote_port=args.remoteport,
             app_name=args.appname,
+            http_auth_user=args.httpauthuser,
+            http_auth_password=args.httpauthpassword,
         )
         deploy.go()
 
