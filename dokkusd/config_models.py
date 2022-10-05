@@ -1,3 +1,6 @@
+from shlex import quote
+
+
 class ServiceConfigModel:
     def __init__(self, config, app_name):
         if isinstance(config, str):
@@ -26,3 +29,13 @@ class VolumeConfigModel:
                 + ":"
                 + container_path,
             ]
+
+
+class EnvironmentVariableConfigModel:
+    def __init__(self, key, value, app_name):
+        self.set_command = [
+            "config:set",
+            "--no-restart",
+            app_name,
+            key + "=" + quote(value),
+        ]

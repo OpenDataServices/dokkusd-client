@@ -56,6 +56,21 @@ You can list the types of services you want attached to your app.
 
 Currently each type can only be attached once.
 
+Environment Variables
+---------------------
+
+.. code-block:: json
+
+    {
+        "dokkusd": {
+            "environment_variables": {
+                "cat":"lucky",
+                "human": "bob"
+            }
+        }
+    }
+
+
 HTTP Auth with user and password
 --------------------------------
 

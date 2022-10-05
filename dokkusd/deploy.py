@@ -2,7 +2,11 @@ import json
 import os
 import subprocess
 
-from .config_models import ServiceConfigModel, VolumeConfigModel
+from .config_models import (
+    EnvironmentVariableConfigModel,
+    ServiceConfigModel,
+    VolumeConfigModel,
+)
 from .util import Task
 
 
@@ -67,6 +71,17 @@ class Deploy(Task):
             print(stdout)
             print(stderr)
             stdout, stderr = self._dokku_command(volume_model.mount_command)
+            print(stdout)
+            print(stderr)
+
+        # --------------------- Env Vars
+        print("Configure Environment Variables ...")
+        envvars = app_json.get("dokkusd", {}).get("environment_variables", {})
+        for key, value in envvars.items():
+            environment_variable = EnvironmentVariableConfigModel(
+                key, value, self.app_name
+            )
+            stdout, stderr = self._dokku_command(environment_variable.set_command)
             print(stdout)
             print(stderr)
 
