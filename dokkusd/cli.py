@@ -43,6 +43,11 @@ def main() -> None:
         help="HTTP Auth Password",
         default=os.getenv("DOKKUSD_HTTP_AUTH_PASSWORD"),
     )
+    deploy_parser.add_argument(
+        "--environmentvariablesjson",
+        help="Environment Variables in JSON dictionary",
+        default=os.getenv("DOKKUSD_ENVIRONMENT_VARIABLES_JSON"),
+    )
 
     ### Destroy
     destroy_parser = subparsers.add_parser("destroy")
@@ -87,6 +92,7 @@ def main() -> None:
             app_name=args.appname,
             http_auth_user=args.httpauthuser,
             http_auth_password=args.httpauthpassword,
+            environment_variables_json_string=args.environmentvariablesjson,
         )
         deploy.go()
 

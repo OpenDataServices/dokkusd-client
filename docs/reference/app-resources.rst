@@ -59,6 +59,8 @@ Currently each type can only be attached once.
 Environment Variables
 ---------------------
 
+You can set these via `app.json`:
+
 .. code-block:: json
 
     {
@@ -69,6 +71,8 @@ Environment Variables
             }
         }
     }
+
+You can also set these on the command line - see the deploy call.
 
 
 HTTP Auth with user and password

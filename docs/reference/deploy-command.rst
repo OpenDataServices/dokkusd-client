@@ -55,3 +55,16 @@ Optional, but both user and password are required if used.
 Pass the user by `--httpauthuser` or set the `DOKKUSD_HTTP_AUTH_USER` environmental variable.
 
 Pass the password by `--httpauthpassword` or set the `DOKKUSD_HTTP_AUTH_PASSWORD` environmental variable.
+
+Environment Variables
+~~~~~~~~~~~~~~~~~~~~~
+
+Optional.
+
+Pass a JSON block by `--environmentvariablesjson` or set the `DOKKUSD_ENVIRONMENT_VARIABLES_JSON` environmental variable.
+
+Be careful to escape any fields:
+
+.. code-block:: bash
+
+    DOKKUSD_ENVIRONMENT_VARIABLES_JSON={\"ENV\":\"dev\",\"DATABASE\":\"dev\"} python -m dokkusd.cli deploy
