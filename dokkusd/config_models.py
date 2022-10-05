@@ -9,4 +9,20 @@ class VolumeConfigModel:
     def __init__(self, config, app_name):
         if isinstance(config, str):
             self.ensure_command = ["storage:ensure-directory", app_name]
-            self.mount_command = ["storage:mount", app_name, app_name + ":" + config]
+            self.mount_command = [
+                "storage:mount",
+                app_name,
+                "/var/lib/dokku/data/storage/" + app_name + ":" + config,
+            ]
+        elif isinstance(config, dict):
+            storage_sub_dir_name = app_name + "_" + config.get("host_subdir")
+            container_path = config.get("container_path")
+            self.ensure_command = ["storage:ensure-directory", storage_sub_dir_name]
+            self.mount_command = [
+                "storage:mount",
+                app_name,
+                "/var/lib/dokku/data/storage/"
+                + storage_sub_dir_name
+                + ":"
+                + container_path,
+            ]

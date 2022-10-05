@@ -24,6 +24,7 @@ setuptools.setup(
             "isort==5.10.1",
             "flake8==5.0.4",
             "mypy==0.981",
+            "pytest",
         ]
     },
     python_requires=">=3.7",

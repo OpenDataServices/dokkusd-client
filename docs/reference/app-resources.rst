@@ -18,9 +18,26 @@ Storage
         }
     }
 
-Currently the `volumes` array can only have one item.
+Items in the volumes array can be a string or a dict.
 
-This should be a string of the location inside the container you want the storage to be available at.
+If a string, it should be the location in the container you want the storage mounted at. You can only have one string in the list.
+
+If a dict, it should be:
+
+.. code-block:: json
+
+    {
+        "dokkusd": {
+            "volumes": [
+                {"host_subdir": "database", "container_path": "/database"}
+            ]
+        }
+    }
+
+* `host_subdir`: The sub directory on the host that will be used. The app name will be put in front.
+* `container_path`: The location in the container you want the storage mounted at
+
+You can have as many dict's as you want in the list and in this way, define multiple storage volumes. `host_subdir` should be unique.
 
 Services
 --------
