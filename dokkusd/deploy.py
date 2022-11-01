@@ -110,7 +110,7 @@ class Deploy(Task):
         # --------------------- Deploy
         print("Deploy ...")
         process = subprocess.Popen(
-            ["git", "push", git_remote_name],
+            ["git", "push", "-f", git_remote_name],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             cwd=self.directory,
