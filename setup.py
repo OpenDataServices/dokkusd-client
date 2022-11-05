@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="DokkuSD",
-    version="0.2.0",
+    version="0.3.0",
     description="DokkuSD",
     long_description="DokkuSD",
     url="https://github.com/OpenDataServices/dokkusd-client",
