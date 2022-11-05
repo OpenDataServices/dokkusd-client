@@ -109,6 +109,20 @@ class Deploy(Task):
             print(stdout)
             print(stderr)
 
+        # --------------------- Keep Git Dir
+        if "keep_git_dir" in app_json.get("dokkusd", {}):
+            print("Keep Git Dir ...")
+            stdout, stderr = self._dokku_command(
+                [
+                    "git:set",
+                    self.app_name,
+                    "keep-git-dir",
+                    "true" if app_json["dokkusd"]["keep_git_dir"] else "false",
+                ]
+            )
+            print(stdout)
+            print(stderr)
+
         # --------------------- Deploy
         print("Deploy ...")
         process = subprocess.Popen(

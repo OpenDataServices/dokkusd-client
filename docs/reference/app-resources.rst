@@ -75,6 +75,22 @@ You can set these via `app.json`:
 You can also set these on the command line - see the deploy call.
 
 
+Keep Git Dir
+------------
+
+https://dokku.com/docs/deployment/methods/git/#keeping-the-git-directory
+
+You can set this via `app.json`:
+
+.. code-block:: json
+
+    {
+        "dokkusd": {
+            "keep_git_dir": True
+        }
+    }
+
+
 HTTP Auth with user and password
 --------------------------------
 
