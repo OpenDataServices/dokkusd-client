@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## Added
+
+- environmentvariablesprefixedby option
+
 ## [0.2.0] - 2022-11-01
 
 ## Changed

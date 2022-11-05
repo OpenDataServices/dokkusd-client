@@ -61,6 +61,17 @@ Environment Variables
 
 Optional.
 
+Pass a string `--environmentvariablesprefixedby`. Any Environmental variables that start with this will be used.
+
+eg.
+
+.. code-block:: bash
+
+    THESE_VARS_TEST_1=cats python -m dokkusd.cli deploy --environmentvariablesprefixedby THESE_VARS_
+
+Will result in TEST_1=cats being set on the Dokku app.
+
+
 Pass a JSON block by `--environmentvariablesjson` or set the `DOKKUSD_ENVIRONMENT_VARIABLES_JSON` environmental variable.
 
 Be careful to escape any fields:

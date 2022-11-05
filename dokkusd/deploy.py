@@ -21,6 +21,7 @@ class Deploy(Task):
         http_auth_user: str = None,
         http_auth_password: str = None,
         environment_variables_json_string: str = None,
+        environment_variables: dict = {},
     ):
         super().__init__(
             directory=directory,
@@ -31,6 +32,7 @@ class Deploy(Task):
         )
         self.http_auth_user = http_auth_user
         self.http_auth_password = http_auth_password
+        self._environment_variables: dict = environment_variables
         self.environment_variables_json_string = environment_variables_json_string
 
     def go(self) -> None:
@@ -79,8 +81,8 @@ class Deploy(Task):
         # --------------------- Env Vars
         print("Configure Environment Variables ...")
         envvars = app_json.get("dokkusd", {}).get("environment_variables", {})
+        envvars.update(self._environment_variables)
         if self.environment_variables_json_string:
-            print(self.environment_variables_json_string)
             environment_variables_dict = json.loads(
                 self.environment_variables_json_string
             )
