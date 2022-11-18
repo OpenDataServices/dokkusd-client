@@ -86,7 +86,7 @@ You can set this via `app.json`:
 
     {
         "dokkusd": {
-            "keep_git_dir": True
+            "keep_git_dir": true
         }
     }
 

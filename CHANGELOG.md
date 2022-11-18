@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - commands option
 
+## Fixed
+
+- JSON typo in docs
+
 ## [0.3.0] - 2022-11-05
 
 ## Added
