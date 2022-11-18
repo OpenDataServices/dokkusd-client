@@ -3,6 +3,7 @@ import os
 import subprocess
 
 from .config_models import (
+    CommandConfigModel,
     EnvironmentVariableConfigModel,
     ServiceConfigModel,
     VolumeConfigModel,
@@ -122,6 +123,21 @@ class Deploy(Task):
             )
             print(stdout)
             print(stderr)
+
+        # --------------------- Commands
+        commands = app_json.get("dokkusd", {}).get("commands")
+        if isinstance(commands, list) and commands:
+            print("Commands ...")
+            for command in commands:
+                command_model = CommandConfigModel(command, self.app_name)
+                if command_model.valid:
+                    stdout, stderr = self._dokku_command(command_model.command)
+                    print(stdout)
+                    print(stderr)
+                else:
+                    print(
+                        "Not running command as not valid; must have $APP_NAME in it somewhere"
+                    )
 
         # --------------------- Deploy
         print("Deploy ...")

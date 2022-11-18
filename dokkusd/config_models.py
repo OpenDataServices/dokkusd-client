@@ -39,3 +39,9 @@ class EnvironmentVariableConfigModel:
             app_name,
             key + "=" + quote(value),
         ]
+
+
+class CommandConfigModel:
+    def __init__(self, config, app_name):
+        self.valid = "$APP_NAME" in config
+        self.command = [(app_name if i == "$APP_NAME" else i) for i in config]

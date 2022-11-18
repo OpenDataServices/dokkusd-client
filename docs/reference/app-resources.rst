@@ -96,3 +96,21 @@ HTTP Auth with user and password
 
 Currently this can only be set on the command line - see the deploy call.
 
+Commands
+--------
+
+You can specify Dokku commands to be run on deploy time.
+
+.. code-block:: json
+
+    {
+        "dokkusd": {
+            "commands": [
+                ["nginx:set","$APP_NAME","client-max-body-size","50m"]
+            ]
+        }
+    }
+
+Commands must have "$APP_NAME" in, or they won't be run - for security reasons.
+
+Be careful with other elements that look like variable names, as in the future they might be. eg "$SIZE"
