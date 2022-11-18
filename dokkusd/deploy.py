@@ -123,6 +123,23 @@ class Deploy(Task):
             print(stdout)
             print(stderr)
 
+        # --------------------- Nginx
+        if "nginx" in app_json.get("dokkusd", {}):
+            nginx = app_json.get("dokkusd", {}).get("nginx")
+            if isinstance(nginx, dict):
+                if "client_max_body_size" in nginx:
+                    print("Nginx: client-max-body-size ...")
+                    stdout, stderr = self._dokku_command(
+                        [
+                            "nginx:set",
+                            self.app_name,
+                            "client-max-body-size",
+                            str(nginx.get("client_max_body_size")),
+                        ]
+                    )
+                    print(stdout)
+                    print(stderr)
+
         # --------------------- Deploy
         print("Deploy ...")
         process = subprocess.Popen(
