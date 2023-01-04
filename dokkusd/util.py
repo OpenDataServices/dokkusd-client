@@ -1,3 +1,4 @@
+import random
 import subprocess
 
 
@@ -6,6 +7,15 @@ def get_remote_name_of_url(git_remote_verbose_output, url_wanted):
         line_bits = [i.strip() for i in line.split() if i.strip()]
         if line_bits and line_bits[1] == url_wanted:
             return line_bits[0]
+
+
+def get_remote_names_configured(git_remote_verbose_output):
+    out = []
+    for line in git_remote_verbose_output.split("\n"):
+        line_bits = [i.strip() for i in line.split() if i.strip()]
+        if line_bits:
+            out.append(line_bits[0])
+    return out
 
 
 class Task:
@@ -64,8 +74,13 @@ class Task:
 
         git_remote_name = get_remote_name_of_url(stdout.decode("utf-8"), git_remote_url)
         if not git_remote_name:
-            # TODO find unique git remote name
+            # Make sure we get a new name not already in use
+            current_git_remote_names = get_remote_names_configured(
+                stdout.decode("utf-8")
+            )
             git_remote_name = "dokku"
+            while git_remote_name in current_git_remote_names:
+                git_remote_name = "dokku-" + str(random.randint(1, 100000000))
             process = subprocess.Popen(
                 ["git", "remote", "add", git_remote_name, git_remote_url],
                 stdout=subprocess.PIPE,
