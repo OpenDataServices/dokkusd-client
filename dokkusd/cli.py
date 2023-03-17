@@ -58,6 +58,12 @@ def main() -> None:
         default=os.getenv("DOKKUSD_NGINX_CLIENT_MAX_BODY_SIZE"),
     )
 
+    deploy_parser.add_argument(
+        "--nginxproxyreadtimeout",
+        help="Sets a value for Nginx Proxy Read Timeout. Include units eg 120s",
+        default=os.getenv("DOKKUSD_NGINX_PROXY_READ_TIMEOUT"),
+    )
+
     ### Destroy
     destroy_parser = subparsers.add_parser("destroy")
     # host
@@ -110,6 +116,7 @@ def main() -> None:
             environment_variables_json_string=args.environmentvariablesjson,
             environment_variables=env_vars,
             nginx_client_max_body_size=args.nginxclientmaxbodysize,
+            nginx_proxy_read_timeout=args.nginxproxyreadtimeout,
         )
         deploy.go()
 

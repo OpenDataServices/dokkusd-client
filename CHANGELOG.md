@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Added
 
 - nginx / client_max_body_size option - set by command line option or environmental variable.
+- nginx / proxy-read-timeout option - set by command line option or environmental variable.
 
 ## Changed
 

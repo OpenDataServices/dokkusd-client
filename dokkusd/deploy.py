@@ -23,6 +23,7 @@ class Deploy(Task):
         environment_variables_json_string: str = None,
         environment_variables: dict = {},
         nginx_client_max_body_size=None,
+        nginx_proxy_read_timeout=None,
     ):
         super().__init__(
             directory=directory,
@@ -36,6 +37,7 @@ class Deploy(Task):
         self._environment_variables: dict = environment_variables
         self.environment_variables_json_string = environment_variables_json_string
         self._nginx_client_max_body_size = nginx_client_max_body_size
+        self._nginx_proxy_read_timeout = nginx_proxy_read_timeout
 
     def go(self) -> None:
 
@@ -125,7 +127,7 @@ class Deploy(Task):
             print(stdout)
             print(stderr)
 
-        # --------------------- Nginx
+        # --------------------- Nginx Client Max Body Size
         # If not already passed, look for it in app.json
         # This way things passed to us take priority over things set in app.json
         # Setting in app.json is deprecated and undocumented.
@@ -150,6 +152,24 @@ class Deploy(Task):
                     str(self._nginx_client_max_body_size),
                 ]
             )
+            print(stdout)
+            print(stderr)
+
+        # --------------------- Nginx Proxy Read Timeout
+        if self._nginx_proxy_read_timeout:
+            print("Nginx: proxy-read-timeout ...")
+            stdout, stderr = self._dokku_command(
+                [
+                    "nginx:set",
+                    self.app_name,
+                    "proxy-read-timeout",
+                    str(self._nginx_proxy_read_timeout),
+                ]
+            )
+            print(stdout)
+            print(stderr)
+            print("proxy:build-config after Nginx: proxy-read-timeout ...")
+            stdout, stderr = self._dokku_command(["proxy:build-config", self.app_name])
             print(stdout)
             print(stderr)
 
