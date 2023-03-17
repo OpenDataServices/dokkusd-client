@@ -22,6 +22,7 @@ class Deploy(Task):
         http_auth_password: str = None,
         environment_variables_json_string: str = None,
         environment_variables: dict = {},
+        nginx_client_max_body_size=None,
     ):
         super().__init__(
             directory=directory,
@@ -34,6 +35,7 @@ class Deploy(Task):
         self.http_auth_password = http_auth_password
         self._environment_variables: dict = environment_variables
         self.environment_variables_json_string = environment_variables_json_string
+        self._nginx_client_max_body_size = nginx_client_max_body_size
 
     def go(self) -> None:
 
@@ -124,21 +126,32 @@ class Deploy(Task):
             print(stderr)
 
         # --------------------- Nginx
-        if "nginx" in app_json.get("dokkusd", {}):
-            nginx = app_json.get("dokkusd", {}).get("nginx")
-            if isinstance(nginx, dict):
-                if "client_max_body_size" in nginx:
-                    print("Nginx: client-max-body-size ...")
-                    stdout, stderr = self._dokku_command(
-                        [
-                            "nginx:set",
-                            self.app_name,
-                            "client-max-body-size",
-                            str(nginx.get("client_max_body_size")),
-                        ]
-                    )
-                    print(stdout)
-                    print(stderr)
+        # If not already passed, look for it in app.json
+        # This way things passed to us take priority over things set in app.json
+        # Setting in app.json is deprecated and undocumented.
+        # This code block will be removed in a later version.
+        if not self._nginx_client_max_body_size:
+            if "nginx" in app_json.get("dokkusd", {}):
+                nginx = app_json.get("dokkusd", {}).get("nginx")
+                if isinstance(nginx, dict):
+                    if "client_max_body_size" in nginx:
+                        self._nginx_client_max_body_size = str(
+                            nginx.get("client_max_body_size")
+                        )
+
+        # If set, process
+        if self._nginx_client_max_body_size:
+            print("Nginx: client-max-body-size ...")
+            stdout, stderr = self._dokku_command(
+                [
+                    "nginx:set",
+                    self.app_name,
+                    "client-max-body-size",
+                    str(self._nginx_client_max_body_size),
+                ]
+            )
+            print(stdout)
+            print(stderr)
 
         # --------------------- Deploy
         print("Deploy ...")

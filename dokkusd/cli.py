@@ -52,6 +52,11 @@ def main() -> None:
         "--environmentvariablesprefixedby",
         help="Any Environmental variables prefixed with this will be given to the Dokku app.",
     )
+    deploy_parser.add_argument(
+        "--nginxclientmaxbodysize",
+        help="Sets a value for Nginx Client Max Body Size. Include units eg 50m",
+        default=os.getenv("DOKKUSD_NGINX_CLIENT_MAX_BODY_SIZE"),
+    )
 
     ### Destroy
     destroy_parser = subparsers.add_parser("destroy")
@@ -104,6 +109,7 @@ def main() -> None:
             http_auth_password=args.httpauthpassword,
             environment_variables_json_string=args.environmentvariablesjson,
             environment_variables=env_vars,
+            nginx_client_max_body_size=args.nginxclientmaxbodysize,
         )
         deploy.go()
 
