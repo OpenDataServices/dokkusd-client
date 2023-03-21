@@ -18,6 +18,15 @@ def get_remote_names_configured(git_remote_verbose_output):
     return out
 
 
+def clean_dokku_app_name(app_name: str) -> str:
+    app_name = app_name.replace(" ", "-")
+    app_name = app_name.replace("_", "-")
+    app_name = app_name.replace(":", "-")
+    app_name = app_name.replace("/", "-")
+    app_name = app_name.replace("\\", "-")
+    return app_name.lower()
+
+
 class Task:
     def __init__(
         self,
@@ -31,7 +40,7 @@ class Task:
         self.remote_user = remote_user
         self.remote_host = remote_host
         self.remote_port = remote_port
-        self.app_name = app_name
+        self.app_name = clean_dokku_app_name(app_name)
 
     def _dokku_command(self, command):
         full_command = [

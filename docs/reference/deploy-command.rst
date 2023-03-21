@@ -79,3 +79,21 @@ Be careful to escape any fields:
 .. code-block:: bash
 
     DOKKUSD_ENVIRONMENT_VARIABLES_JSON={\"ENV\":\"dev\",\"DATABASE\":\"dev\"} python -m dokkusd.cli deploy
+
+Nginx Client Max body size
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sets the Nginx Client Max body size.
+
+Pass a string to `--nginxclientmaxbodysize` or set the `DOKKUSD_NGINX_CLIENT_MAX_BODY_SIZE` environmental variable.
+
+Should include units. eg `50m` not `50`.
+
+Nginx Proxy Read Timeout
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sets the Nginx Proxy Read Timeout.
+
+Pass a string to `--nginxproxyreadtimeout` or set the `DOKKUSD_NGINX_PROXY_READ_TIMEOUT` environmental variable.
+
+Should include units. eg `120s` not `120`.

@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## Added
+
+- nginx / client_max_body_size option - set by command line option or environmental variable.
+- nginx / proxy-read-timeout option - set by command line option or environmental variable.
+- Dokku app names are cleaned up. Invalid characters are changed to "-". Lower case is enforced.
+
+## Changed
+
+- nginx / client_max_body_size option - setting this by app.json is deprecated and will be removed in a later version.
+
+
 ## Fixed
 
 - When creating new git remote name, check it does not already exist. If it does, add random numbers to name.

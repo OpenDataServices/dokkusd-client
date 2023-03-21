@@ -95,28 +95,3 @@ HTTP Auth with user and password
 --------------------------------
 
 Currently this can only be set on the command line - see the deploy call.
-
-Nginx
------
-
-https://dokku.com/docs/networking/proxies/nginx/#specifying-a-custom-client_max_body_size
-
-You can set a value with:
-
-.. code-block:: json
-
-	"dokkusd": {
-		"nginx": {
-			"client_max_body_size": "50m"
-		}
-	}
-
-You can clear a value and use the default with:
-
-.. code-block:: json
-
-	"dokkusd": {
-		"nginx": {
-			"client_max_body_size": "50m"
-		}
-	}

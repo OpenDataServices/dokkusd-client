@@ -7,3 +7,4 @@ Reference
    deploy-command.rst
    destroy-command.rst
    app-resources.rst
+   dokku-app-names.rst
