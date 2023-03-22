@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - nginx / client_max_body_size option - set by command line option or environmental variable.
 - nginx / proxy-read-timeout option - set by command line option or environmental variable.
 - Dokku app names are cleaned up. Invalid characters are changed to "-". Lower case is enforced.
+- ps:sale - set by command line option or environmental variable.
 
 ## Changed
 

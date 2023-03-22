@@ -24,6 +24,7 @@ class Deploy(Task):
         environment_variables: dict = {},
         nginx_client_max_body_size=None,
         nginx_proxy_read_timeout=None,
+        ps_scale=None,
     ):
         super().__init__(
             directory=directory,
@@ -38,6 +39,7 @@ class Deploy(Task):
         self.environment_variables_json_string = environment_variables_json_string
         self._nginx_client_max_body_size = nginx_client_max_body_size
         self._nginx_proxy_read_timeout = nginx_proxy_read_timeout
+        self._ps_scale = ps_scale
 
     def go(self) -> None:
 
@@ -170,6 +172,19 @@ class Deploy(Task):
             print(stderr)
             print("proxy:build-config after Nginx: proxy-read-timeout ...")
             stdout, stderr = self._dokku_command(["proxy:build-config", self.app_name])
+            print(stdout)
+            print(stderr)
+
+        # --------------------- PS scale
+        if self._ps_scale:
+            print("Ps: scale ...")
+            command = [
+                "ps:scale",
+                self.app_name,
+                "--skip-deploy",
+            ]
+            command.extend([i.strip() for i in self._ps_scale.split(" ") if i.strip()])
+            stdout, stderr = self._dokku_command(command)
             print(stdout)
             print(stderr)
 
