@@ -97,3 +97,10 @@ Sets the Nginx Proxy Read Timeout.
 Pass a string to `--nginxproxyreadtimeout` or set the `DOKKUSD_NGINX_PROXY_READ_TIMEOUT` environmental variable.
 
 Should include units. eg `120s` not `120`.
+
+Scale Processes
+~~~~~~~~~~~~~~~
+
+Sets the ps:scale command, to set the number of each different type of process types to run.
+
+Pass a string to `--psscale` or set the `DOKKUSD_PS_SCALE` environmental variable.
