@@ -68,6 +68,11 @@ def main() -> None:
         help="Sets values for scale command. eg web=1 worker=2",
         default=os.getenv("DOKKUSD_PS_SCALE"),
     )
+    deploy_parser.add_argument(
+        "--letsencryptemail",
+        help="Set email address for Lets Encrypt. If present, Lets Encrypt will be enabled.",
+        default=os.getenv("DOKKUSD_LETSENCRYPT_EMAIL"),
+    )
 
     ### Destroy
     destroy_parser = subparsers.add_parser("destroy")
@@ -123,6 +128,8 @@ def main() -> None:
             nginx_client_max_body_size=args.nginxclientmaxbodysize,
             nginx_proxy_read_timeout=args.nginxproxyreadtimeout,
             ps_scale=args.psscale,
+            letsencrypt_email=args.letsencryptemail,
+            letsencrypt_enable=bool(args.letsencryptemail),
         )
         deploy.go()
 

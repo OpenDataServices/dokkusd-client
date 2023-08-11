@@ -104,3 +104,10 @@ Scale Processes
 Sets the ps:scale command, to set the number of each different type of process types to run.
 
 Pass a string to `--psscale` or set the `DOKKUSD_PS_SCALE` environmental variable.
+
+Lets Encrypt
+~~~~~~~~~~~~
+
+Enables Lets Encrypt HTTPS. You must set the email address for the Lets Encrypt account to use this.
+
+Pass a string to `--letsencryptemail` or set the `DOKKUSD_LETSENCRYPT_EMAIL` environmental variable.
