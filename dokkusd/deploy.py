@@ -25,6 +25,8 @@ class Deploy(Task):
         nginx_client_max_body_size=None,
         nginx_proxy_read_timeout=None,
         ps_scale=None,
+        letsencrypt_enable=False,
+        letsencrypt_email=None,
     ):
         super().__init__(
             directory=directory,
@@ -40,6 +42,8 @@ class Deploy(Task):
         self._nginx_client_max_body_size = nginx_client_max_body_size
         self._nginx_proxy_read_timeout = nginx_proxy_read_timeout
         self._ps_scale = ps_scale
+        self._letsencrypt_enable = letsencrypt_enable
+        self._letsencrypt_email = letsencrypt_email
 
     def go(self) -> None:
 
@@ -199,3 +203,25 @@ class Deploy(Task):
         stdout, stderr = process.communicate()
         print(stdout.decode("utf-8"))
         print(stderr.decode("utf-8"))
+
+        # --------------------- Deploy
+        if self._letsencrypt_enable and self._letsencrypt_email:
+            print("Lets Encrypt ...")
+            stdout, stderr = self._dokku_command(
+                [
+                    "letsencrypt:set",
+                    self.app_name,
+                    "email",
+                    str(self._letsencrypt_email),
+                ]
+            )
+            print(stdout)
+            print(stderr)
+            stdout, stderr = self._dokku_command(
+                [
+                    "letsencrypt:enable",
+                    self.app_name,
+                ]
+            )
+            print(stdout)
+            print(stderr)

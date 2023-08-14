@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.6.0] - 2023-08-11
+
+## Added
+
+- Lets Encrypt option
+
 ## [0.5.0] - 2023-03-23
 
 ## Added
