@@ -25,7 +25,8 @@ setuptools.setup(
             "flake8==5.0.4",
             "mypy==0.981",
             "pytest",
+            "odsc-default-sphinx-theme",
         ]
     },
-    python_requires=">=3.7",
+    python_requires=">=3.9",
 )
